@@ -269,6 +269,10 @@ class LengowProduct extends Product
                 return LengowMain::cleanData($this->supplier_name);
             case 'weight':
                 return LengowMain::formatNumber($this->getWeight($idProductAttribute));
+            case 'width':
+            case 'height':
+            case 'depth':
+                return LengowMain::formatNumber($this->{$name});
             case 'weight_unit':
                 return Configuration::get('PS_WEIGHT_UNIT');
             case 'available':
@@ -351,7 +355,7 @@ class LengowProduct extends Product
                 $combArray[$attributeId]['available_date'] = $available->format('Y-m-d');
             }
         }
-        if (isset($combArray)) {
+        if (count($combArray) > 0) {
             foreach ($combArray as $idProductAttribute => $productAttribute) {
                 $name = '';
                 // in order to keep the same attributes order
